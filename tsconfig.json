@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "target": "esnext",
+      "module": "commonjs",
+      "lib": ["dom", "es7", "es2017"],
+      "allowJs": true,
+      "jsx": "react",
+      "outDir": "./js",
+      "rootDir": "./client",
+      "strict": true,
+      "types": ["node"],
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
+    },
+    "include": ["client/**/*"]
+  }
