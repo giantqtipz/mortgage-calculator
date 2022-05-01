@@ -21,6 +21,7 @@
     "plugins": ["@typescript-eslint", "react"],
     "rules": {
         "camelcase": "off",
+        "react/jsx-curly-newline": "off", 
         "@typescript-eslint/camelcase": "off",
         "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/no-use-before-define": "warn",

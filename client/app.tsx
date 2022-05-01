@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import { Main } from './components/index';
+import Main from './components/main/Main';
 
 const App: React.FC = () => {
   return (

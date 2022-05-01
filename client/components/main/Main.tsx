@@ -1,4 +1,5 @@
 import React from 'react';
+import { Intro, Calculator } from '../index';
 import './main.scss';
 
 interface Props {
@@ -10,7 +11,8 @@ interface Props {
 const Main: React.FC<Props> = () => {
   return (
     <>
-      <h1>Im alive!</h1>
+      <Intro />
+      <Calculator />
     </>
   );
 };

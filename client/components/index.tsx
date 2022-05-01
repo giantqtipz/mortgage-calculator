@@ -1,3 +1,4 @@
-import Main from './main/Main';
+import Calculator from './calculator/Calculator';
+import Intro from './intro/Intro';
 
-export { Main };
+export { Calculator, Intro };
