@@ -1,4 +1,4 @@
-import Calculator from './calculator/Calculator';
+import MortgageCalculator from './mortgageCalculator/MortgageCalculator';
 import Intro from './intro/Intro';
 
-export { Calculator, Intro };
+export { MortgageCalculator, Intro };

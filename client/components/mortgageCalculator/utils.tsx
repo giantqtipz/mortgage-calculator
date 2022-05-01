@@ -1,25 +1,21 @@
 const updateLoanAmount = (
   purchasePrice: number,
-  downPayment: number,
-  callback: (newLoanAmount: number) => void
-): void => {
+  downPayment: number
+): number => {
   const newLoanAmount = purchasePrice - (purchasePrice * downPayment) / 100;
-  callback(newLoanAmount);
+  return newLoanAmount;
 };
 const calculateMortgage = (
-  e: any,
   loanAmount: number,
   rate: number,
-  term: number,
-  callback: (newMortgageAmount: number) => void
-): void => {
-  e.preventDefault();
+  term: number
+): number => {
   const monthlyRate = rate / 12;
   const numerator = (1 + rate / 12) ** (term * 12);
   const denominator = (1 + rate / 12) ** (term * 12) - 1;
   const newMortgageAmount =
     (loanAmount * monthlyRate * numerator) / denominator;
-  callback(newMortgageAmount);
+  return newMortgageAmount;
 };
 
 export { updateLoanAmount, calculateMortgage };
