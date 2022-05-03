@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import './mortgageCalculator.scss';
 import { updateLoanAmount, calculateMortgage } from './utils';
 
@@ -11,17 +11,25 @@ const MortgageCalculator: React.FC = () => {
   const [term, setTerm] = useState<number>(30);
   const [rate, setRate] = useState<number>(0.0375);
 
-  const [mortgageAmount, setMortgageAmount] = useState<number>(0);
+  const [mortgageTotal, setMortgageTotal] = useState<number>(0);
 
-  const prevMortgageAmount = useRef<number>(0);
+  // Stores previous mortgage total without creating a new state; therefore avoiding a re-render
+  const prevMortgageTotal = useRef<number>(0);
+
+  // Avoid recalculating mortgage if loanAmount, term, and rate do not change
+  const memoizedMortgageTotal = useMemo(() => {
+    return calculateMortgage(loanAmount, rate, term);
+  }, [loanAmount, term, rate]);
 
   useEffect(() => {
     setLoanAmount(updateLoanAmount(purchasePrice, downPayment));
   }, [purchasePrice, downPayment]);
 
+  // Populates mortgage total at initial render
   useEffect(() => {
-    setMortgageAmount(calculateMortgage(loanAmount, rate, term));
+    setMortgageTotal(calculateMortgage(loanAmount, rate, term));
   }, []);
+
   return (
     <>
       <h4>Calculate Your Mortgage</h4>
@@ -29,9 +37,10 @@ const MortgageCalculator: React.FC = () => {
         id="mortgage-calculator"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
-          setMortgageAmount((prevMortgage: number): number => {
-            prevMortgageAmount.current = prevMortgage;
-            return calculateMortgage(loanAmount, rate, term);
+          // Stores current mortgage total in useRef, before calculating the new mortgage total
+          setMortgageTotal((prevMortgage: number): number => {
+            prevMortgageTotal.current = prevMortgage;
+            return memoizedMortgageTotal;
           });
         }}
       >
@@ -83,8 +92,8 @@ const MortgageCalculator: React.FC = () => {
       </form>
       <div className="mortgage">
         <h5>Total Monthly Mortgage</h5>
-        <p>{`$ ${mortgageAmount}`}</p>
-        <p>{`$ ${prevMortgageAmount.current}`}</p>
+        <p>{`$ ${mortgageTotal}`}</p>
+        <p>{`$ ${prevMortgageTotal.current}`}</p>
       </div>
     </>
   );
