@@ -39,7 +39,8 @@ const MortgageCalculator: React.FC = () => {
           e.preventDefault();
           // Stores current mortgage total in useRef, before calculating the new mortgage total
           setMortgageTotal((prevMortgage: number): number => {
-            prevMortgageTotal.current = prevMortgage;
+            if (prevMortgage !== memoizedMortgageTotal)
+              prevMortgageTotal.current = prevMortgage;
             return memoizedMortgageTotal;
           });
         }}
