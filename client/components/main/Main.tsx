@@ -1,5 +1,5 @@
 import React from 'react';
-import { Intro, Calculator } from '../index';
+import { Intro, MortgageCalculator } from '../index';
 import './main.scss';
 
 interface Props {
@@ -12,7 +12,7 @@ const Main: React.FC<Props> = () => {
   return (
     <>
       <Intro />
-      <Calculator />
+      <MortgageCalculator />
     </>
   );
 };

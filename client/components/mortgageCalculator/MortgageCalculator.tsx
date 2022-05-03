@@ -1,27 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import './calculator.scss';
+import React, { useEffect, useState, useRef } from 'react';
+import './mortgageCalculator.scss';
 import { updateLoanAmount, calculateMortgage } from './utils';
 
-const Calculator: React.FC = () => {
-  const [purchasePrice, setPurchasePrice] = useState(269000);
-  const [downPayment, setDownPayment] = useState(30);
-  const [loanAmount, setLoanAmount] = useState(0);
-  const [term, setTerm] = useState(30);
-  const [rate, setRate] = useState(0.0375);
+const MortgageCalculator: React.FC = () => {
+  const [purchasePrice, setPurchasePrice] = useState<number>(269000);
+  const [downPayment, setDownPayment] = useState<number>(30);
+  const [loanAmount, setLoanAmount] = useState<number>(
+    updateLoanAmount(purchasePrice, downPayment)
+  );
+  const [term, setTerm] = useState<number>(30);
+  const [rate, setRate] = useState<number>(0.0375);
 
-  const [mortgageAmount, setMortgageAmount] = useState(0);
+  const [mortgageAmount, setMortgageAmount] = useState<number>(0);
+
+  const prevMortgageAmount = useRef<number>(0);
 
   useEffect(() => {
-    updateLoanAmount(purchasePrice, downPayment, setLoanAmount);
+    setLoanAmount(updateLoanAmount(purchasePrice, downPayment));
   }, [purchasePrice, downPayment]);
+
+  useEffect(() => {
+    setMortgageAmount(calculateMortgage(loanAmount, rate, term));
+  }, []);
   return (
     <>
       <h4>Calculate Your Mortgage</h4>
       <form
         id="mortgage-calculator"
-        onSubmit={(e: React.FormEvent) =>
-          calculateMortgage(e, loanAmount, rate, term, setMortgageAmount)
-        }
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+          e.preventDefault();
+          setMortgageAmount((prevMortgage: number): number => {
+            prevMortgageAmount.current = prevMortgage;
+            return calculateMortgage(loanAmount, rate, term);
+          });
+        }}
       >
         <label htmlFor="purchase-price">
           <input
@@ -72,9 +84,10 @@ const Calculator: React.FC = () => {
       <div className="mortgage">
         <h5>Total Monthly Mortgage</h5>
         <p>{`$ ${mortgageAmount}`}</p>
+        <p>{`$ ${prevMortgageAmount.current}`}</p>
       </div>
     </>
   );
 };
 
-export default Calculator;
+export default MortgageCalculator;
