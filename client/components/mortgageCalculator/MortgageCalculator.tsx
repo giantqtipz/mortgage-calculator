@@ -14,7 +14,7 @@ const MortgageCalculator: React.FC = () => {
   const [mortgageTotal, setMortgageTotal] = useState<number>(0);
 
   // Stores previous mortgage total without creating a new state; therefore avoiding a re-render
-  const prevMortgageTotal = useRef<number>(0)
+  const prevMortgageTotal = useRef<number>(0);
 
   // Avoid recalculating mortgage if loanAmount, term, and rate do not change
   const memoizedMortgageTotal = useMemo(() => {
