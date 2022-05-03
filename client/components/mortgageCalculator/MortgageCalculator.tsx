@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './mortgageCalculator.scss';
 import { updateLoanAmount, calculateMortgage } from './utils';
 
@@ -12,6 +12,8 @@ const MortgageCalculator: React.FC = () => {
   const [rate, setRate] = useState<number>(0.0375);
 
   const [mortgageAmount, setMortgageAmount] = useState<number>(0);
+
+  const prevMortgageAmount = useRef<number>(0);
 
   useEffect(() => {
     setLoanAmount(updateLoanAmount(purchasePrice, downPayment));
@@ -27,7 +29,10 @@ const MortgageCalculator: React.FC = () => {
         id="mortgage-calculator"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
-          setMortgageAmount(calculateMortgage(loanAmount, rate, term));
+          setMortgageAmount((prevMortgage: number): number => {
+            prevMortgageAmount.current = prevMortgage;
+            return calculateMortgage(loanAmount, rate, term);
+          });
         }}
       >
         <label htmlFor="purchase-price">
@@ -79,6 +84,7 @@ const MortgageCalculator: React.FC = () => {
       <div className="mortgage">
         <h5>Total Monthly Mortgage</h5>
         <p>{`$ ${mortgageAmount}`}</p>
+        <p>{`$ ${prevMortgageAmount.current}`}</p>
       </div>
     </>
   );
