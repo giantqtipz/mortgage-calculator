@@ -1,5 +1,5 @@
 {
-  "name": "Mortgage Calculator",
+  "name": "mortgage-calculator",
   "version": "1.0.0",
   "description": "Mortgage Calculator built with Express, Node.js, PostgreSQL, React, Redux, Typescript",
   "main": "index.js",
