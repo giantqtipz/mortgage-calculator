@@ -5,6 +5,7 @@ const updateLoanAmount = (
   const newLoanAmount = purchasePrice - (purchasePrice * downPayment) / 100;
   return newLoanAmount;
 };
+
 const calculateMortgage = (
   loanAmount: number,
   rate: number,
@@ -18,4 +19,8 @@ const calculateMortgage = (
   return newMortgageAmount;
 };
 
-export { updateLoanAmount, calculateMortgage };
+const calculatePoints = (loanAmount: number, points: number): number => {
+  return loanAmount * 0.01 * points;
+};
+
+export { updateLoanAmount, calculateMortgage, calculatePoints };
