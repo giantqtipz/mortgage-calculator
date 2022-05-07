@@ -24,13 +24,14 @@ const PointsCalculator: React.FC = () => {
     number
   >(mortgageTotal);
 
+  // Avoid recalculating mortgage if loanAmount, term, and rate do not change
   const memoizedMortgageTotalWithPoints = useMemo(() => {
     return calculateMortgage(
       loanAmount,
-      pointsRate === 0 ? rate : pointsRate / 100,
+      pointsRate <= 0 ? rate : pointsRate / 100,
       term
     );
-  }, [points, loanAmount, term, rate, mortgageTotal]);
+  }, [points, loanAmount, term, pointsRate, rate, mortgageTotal]);
 
   useEffect(() => {
     setPointsCost(calculatePoints(loanAmount, points));
@@ -41,13 +42,7 @@ const PointsCalculator: React.FC = () => {
   }, [pointsCost]);
 
   useEffect(() => {
-    setMortgageTotalWithPoints(
-      calculateMortgage(
-        loanAmount,
-        pointsRate === 0 ? rate : pointsRate / 100,
-        term
-      )
-    );
+    setMortgageTotalWithPoints(mortgageTotal);
   }, []);
   return (
     <>

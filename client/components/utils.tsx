@@ -11,6 +11,7 @@ const calculateMortgage = (
   rate: number,
   term: number
 ): number => {
+  console.log(loanAmount, rate, term);
   const monthlyRate = rate / 12;
   const numerator = (1 + rate / 12) ** (term * 12);
   const denominator = (1 + rate / 12) ** (term * 12) - 1;
