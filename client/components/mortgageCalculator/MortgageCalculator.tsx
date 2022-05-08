@@ -1,15 +1,21 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useContext, useEffect, useState, useRef, useMemo } from 'react';
 import './mortgageCalculator.scss';
-import { updateLoanAmount, calculateMortgage } from './utils';
+import { updateLoanAmount, calculateMortgage } from '../utils';
+import { MetricsContext } from '../contextUtils';
 
 const MortgageCalculator: React.FC = () => {
-  const [purchasePrice, setPurchasePrice] = useState<number>(269000);
-  const [downPayment, setDownPayment] = useState<number>(30);
-  const [loanAmount, setLoanAmount] = useState<number>(
-    updateLoanAmount(purchasePrice, downPayment)
-  );
-  const [term, setTerm] = useState<number>(30);
-  const [rate, setRate] = useState<number>(0.0375);
+  const {
+    purchasePrice,
+    setPurchasePrice,
+    downPayment,
+    setDownPayment,
+    loanAmount,
+    setLoanAmount,
+    term,
+    setTerm,
+    rate,
+    setRate,
+  } = useContext(MetricsContext);
 
   const [mortgageTotal, setMortgageTotal] = useState<number>(0);
 
@@ -29,7 +35,6 @@ const MortgageCalculator: React.FC = () => {
   useEffect(() => {
     setMortgageTotal(calculateMortgage(loanAmount, rate, term));
   }, []);
-
   return (
     <>
       <h4>Calculate Your Mortgage</h4>
@@ -85,6 +90,7 @@ const MortgageCalculator: React.FC = () => {
           <input
             type="number"
             name="rate"
+            min="0.01"
             onChange={(e) => setRate(e.target.valueAsNumber)}
             value={rate}
           />
@@ -94,7 +100,7 @@ const MortgageCalculator: React.FC = () => {
       <div className="mortgage">
         <h5>Total Monthly Mortgage</h5>
         <p>{`$ ${mortgageTotal}`}</p>
-        <p>{`$ ${prevMortgageTotal.current}`}</p>
+        {/* <p>{`$ ${prevMortgageTotal.current}`}</p> */}
       </div>
     </>
   );
