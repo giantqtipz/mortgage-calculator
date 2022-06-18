@@ -20,6 +20,8 @@
     },
     "plugins": ["@typescript-eslint", "react"],
     "rules": {
+        "no-bitwise": 0,
+        "no-plusplus": 0,
         "camelcase": "off",
         "react/jsx-curly-newline": "off", 
         "@typescript-eslint/camelcase": "off",
