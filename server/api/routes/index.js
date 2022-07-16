@@ -1,6 +1,7 @@
 const { app } = require('../server');
+const { ratesRouter } = require('./rates');
 
-const routes = [];
+const routes = [ratesRouter];
 
 const initRoutes = () => {
   return routes.forEach((route) => {

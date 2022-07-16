@@ -1,3 +1,5 @@
-// const { Model } = require('model');
+const { Rate } = require('./Rate');
 
-module.exports = {};
+module.exports = {
+  Rate,
+};

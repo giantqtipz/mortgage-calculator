@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, useRef, useMemo } from 'react';
 import './mortgageCalculator.scss';
 import { updateLoanAmount, calculateMortgage } from '../utils';
 import { MetricsContext } from '../contextUtils';
+// import downloadFile  from '../../../server/api/utils/excel';
 
 const MortgageCalculator: React.FC = () => {
   const {
@@ -26,6 +27,16 @@ const MortgageCalculator: React.FC = () => {
   const memoizedMortgageTotal = useMemo(() => {
     return calculateMortgage(loanAmount, rate, term);
   }, [loanAmount, term, rate]);
+
+  // const download = () => {
+  //   downloadFile();
+  // };
+
+  // const test = async () => {
+  //   const data = await axios.post('/api/rates', {data: 'obama'});
+  //   // console.log(data);
+  //   return data;
+  // };
 
   useEffect(() => {
     setLoanAmount(updateLoanAmount(purchasePrice, downPayment));
@@ -102,6 +113,9 @@ const MortgageCalculator: React.FC = () => {
         <p>{`$ ${mortgageTotal}`}</p>
         {/* <p>{`$ ${prevMortgageTotal.current}`}</p> */}
       </div>
+      {/* <button onClick={test} type="button">
+        Download
+      </button> */}
     </>
   );
 };
