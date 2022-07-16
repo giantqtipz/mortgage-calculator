@@ -29,14 +29,8 @@ const s2ab = (s) => {
   return buffer;
 };
 
-const blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
+const blob = new Blob([s2ab(wbout)]);
 
-const downloadFile = (
-  purchasePrice: number,
-  loanAmount: number,
-  term: number,
-  rate: number,
-  downpayment:number
-): any => saveAs(blob, 'Mortgage Calculator.xlsx');
+const downloadFile = () => saveAs(blob, 'MortgageCalculator.xlsx');
 
 export default downloadFile;
