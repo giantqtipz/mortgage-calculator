@@ -5,11 +5,7 @@ require('dotenv').config();
 const api_key = process.env.FRED_API_KEY;
 const fred = new Fred(api_key);
 
-const series = {
-  MORTGAGE30US: [],
-  MORTGAGE15US: [],
-  MORTGAGE5US: [],
-};
+const series = { MORTGAGE30US: [], MORTGAGE15US: [], MORTGAGE5US: [] };
 
 const fetchRate = (serie) => {
   return new Promise((resolve, reject) => {
