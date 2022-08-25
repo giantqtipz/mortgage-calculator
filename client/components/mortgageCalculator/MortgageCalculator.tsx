@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useRef, useMemo } from 'react';
 import './mortgageCalculator.scss';
-import { updateLoanAmount, calculateMortgage } from '../utils';
+import { getLoanAmount, calculateMortgage } from '../utils';
 import { MetricsContext } from '../contextUtils';
 // import downloadFile  from '../../../server/api/utils/excel';
 
@@ -39,13 +39,14 @@ const MortgageCalculator: React.FC = () => {
   // };
 
   useEffect(() => {
-    setLoanAmount(updateLoanAmount(purchasePrice, downPayment));
+    setLoanAmount(getLoanAmount(purchasePrice, downPayment));
   }, [purchasePrice, downPayment]);
 
   // Populates mortgage total at initial render
   useEffect(() => {
     setMortgageTotal(calculateMortgage(loanAmount, rate, term));
   }, []);
+  console.log(getLoanAmount(269000, 30), 'haha');
   return (
     <>
       <h4>Calculate Your Mortgage</h4>

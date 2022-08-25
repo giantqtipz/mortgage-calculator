@@ -1,9 +1,9 @@
-const updateLoanAmount = (
+const getLoanAmount = (
   purchasePrice: number,
   downPayment: number
 ): number => {
-  const newLoanAmount = purchasePrice - (purchasePrice * downPayment) / 100;
-  return newLoanAmount;
+  const getLoanAmount = purchasePrice - (purchasePrice * downPayment) / 100;
+  return getLoanAmount;
 };
 
 const calculateMortgage = (
@@ -11,7 +11,6 @@ const calculateMortgage = (
   rate: number,
   term: number
 ): number => {
-  console.log(loanAmount, rate, term);
   const monthlyRate = rate / 12;
   const numerator = (1 + rate / 12) ** (term * 12);
   const denominator = (1 + rate / 12) ** (term * 12) - 1;
@@ -21,7 +20,8 @@ const calculateMortgage = (
 };
 
 const calculatePoints = (loanAmount: number, points: number): number => {
+  console.log(loanAmount, 0.01, points);
   return loanAmount * 0.01 * points;
 };
 
-export { updateLoanAmount, calculateMortgage, calculatePoints };
+export { getLoanAmount, calculateMortgage, calculatePoints };
