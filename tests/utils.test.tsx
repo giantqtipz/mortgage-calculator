@@ -1,4 +1,4 @@
-const { getLoanAmount, calculateMortgage, calculatePoints } = require('./utils');
+const { getLoanAmount, calculateMortgage, calculatePoints } = require('../client/components/utils');
 
 describe('Properly calculates utility functions', () => {
     const purchasePrice: number = 269000;

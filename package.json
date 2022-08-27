@@ -12,7 +12,8 @@
     "start:dev-build": "npm run compile:watch & webpack --mode=\"development\" --watch",
     "start:dev-server": "node-dev --respawn server/index.js",
     "syncDB": "node server/db/syncDB",
-    "test": "jest --config ./jest.unit.json --coverage"
+    "fred": "node ./server/api/utils/fred.js",
+    "test": "jest --config ./jest.unit.json --coverage --detectOpenHandles"
   },
   "author": "Abimanyu Saridjo",
   "license": "ISC",
@@ -46,6 +47,7 @@
     "@types/react-router-dom": "^5.1.6",
     "@types/redux": "^3.6.0",
     "@types/redux-logger": "^3.0.8",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",
     "css-loader": "^5.0.1",
@@ -63,6 +65,7 @@
     "prettier": "^2.1.2",
     "sass-loader": "^10.1.0",
     "style-loader": "^2.0.0",
+    "supertest": "^6.2.4",
     "ts-jest": "^28.0.8",
     "ts-loader": "^9.3.1",
     "ts-node": "^10.9.1",

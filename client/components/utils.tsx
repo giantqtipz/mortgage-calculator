@@ -20,7 +20,6 @@ const calculateMortgage = (
 };
 
 const calculatePoints = (loanAmount: number, points: number): number => {
-  console.log(loanAmount, 0.01, points);
   return loanAmount * 0.01 * points;
 };
 

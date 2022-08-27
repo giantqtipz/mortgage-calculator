@@ -6,12 +6,12 @@
       "allowJs": true,
       "jsx": "react",
       "outDir": "./js",
-      "rootDir": "./client",
+      "rootDirs": ["./client", "./tests"],
       "strict": true,
       "types": ["node", "jest"],
       "esModuleInterop": true,
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true
     },
-    "include": ["client/**/*"]
+    "include": ["client/**/*", "tests/**/*"]
   }

@@ -46,7 +46,7 @@ const MortgageCalculator: React.FC = () => {
   useEffect(() => {
     setMortgageTotal(calculateMortgage(loanAmount, rate, term));
   }, []);
-  console.log(getLoanAmount(269000, 30), 'haha');
+
   return (
     <>
       <h4>Calculate Your Mortgage</h4>
