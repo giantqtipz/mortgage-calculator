@@ -4,7 +4,9 @@ node_js:
   - "12"
 script:
   - npm run build
+  - npm run server
   - npm run test
+
 notifications:
   email:
     on_failure: always
