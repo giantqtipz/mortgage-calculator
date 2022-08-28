@@ -6,6 +6,7 @@ services:
  -  postgresql
 before_script:
   - psql -c 'create database Mortgage_Calculator;' -U postgres
+  - psql --command="CREATE DATABASE Mortgage_Calculator;"
 script:
   - npm run build
   - npm run syncDB
