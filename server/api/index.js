@@ -2,7 +2,7 @@ const { app } = require('./server');
 const applyMiddleware = require('./middleware');
 const { initRoutes } = require('./routes/index');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5432;
 
 initRoutes();
 applyMiddleware();

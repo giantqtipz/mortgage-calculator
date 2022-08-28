@@ -8,8 +8,8 @@ before_script:
   - psql -c 'create database Mortgage_Calculator;' -U postgres
 script:
   - npm run build
-  - travis_wait npm run syncDB
-  - travis_wait npm run test
+  - npm run syncDB
+  - npm run test
 notifications:
   email:
     on_failure: always
