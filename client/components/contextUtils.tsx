@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { updateLoanAmount } from './utils';
+import { getLoanAmount } from './utils';
 
 // Create context for purchasePrice, downPayment, loanAmount, term, rate, mortgageTotal
 // so they are accessible to the PointsCalculator component
@@ -25,7 +25,7 @@ const MetricsProvider: React.FC = ({ children }) => {
   const [purchasePrice, setPurchasePrice] = useState<number>(269000);
   const [downPayment, setDownPayment] = useState<number>(30);
   const [loanAmount, setLoanAmount] = useState<number>(
-    updateLoanAmount(purchasePrice, downPayment)
+    getLoanAmount(purchasePrice, downPayment)
   );
   const [term, setTerm] = useState<number>(30);
   const [rate, setRate] = useState<number>(0.0375);
