@@ -1,4 +1,4 @@
-const { getLoanAmount, calculateMortgage, calculatePoints } = require('../client/components/utils');
+const { calculateLoanAmount, calculateMortgage, calculatePoints } = require('../client/components/utils');
 
 describe('Properly calculates utility functions', () => {
     const purchasePrice: number = 269000;
@@ -7,7 +7,7 @@ describe('Properly calculates utility functions', () => {
     const rate: number = .0375;
     const term: number = 30;
 
-    const loanAmount: number = getLoanAmount(purchasePrice, downPayment);
+    const loanAmount: number = calculateLoanAmount(purchasePrice, downPayment);
     const points: number = 1.5
     const rateWithPoints: number = (rate * 100 - points * 0.25) / 100;
 

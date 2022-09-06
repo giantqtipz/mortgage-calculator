@@ -1,9 +1,9 @@
-const getLoanAmount = (
+const calculateLoanAmount = (
   purchasePrice: number,
   downPayment: number
 ): number => {
-  const getLoanAmount = purchasePrice - (purchasePrice * downPayment) / 100;
-  return getLoanAmount;
+  const calculateLoanAmount = purchasePrice - (purchasePrice * downPayment) / 100;
+  return calculateLoanAmount;
 };
 
 const calculateMortgage = (
@@ -23,4 +23,9 @@ const calculatePoints = (loanAmount: number, points: number): number => {
   return loanAmount * 0.01 * points;
 };
 
-export { getLoanAmount, calculateMortgage, calculatePoints };
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  currency: 'USD',
+  style: 'currency',
+});
+
+export { calculateLoanAmount, calculateMortgage, calculatePoints, currencyFormatter };
