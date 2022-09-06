@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState, useRef, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
+import { calculateLoanAmount, calculateMortgage } from '../utils';
+import { MetricsContext } from '../contexts/metricsContext';
 import './mortgageCalculator.scss';
-import { getLoanAmount, calculateMortgage } from '../utils';
-import { MetricsContext } from '../contextUtils';
-// import downloadFile  from '../../../server/api/utils/excel';
 
 const MortgageCalculator: React.FC = () => {
   const {
@@ -16,37 +15,23 @@ const MortgageCalculator: React.FC = () => {
     setTerm,
     rate,
     setRate,
+    mortgageTotal,
+    setMortgageTotal
   } = useContext(MetricsContext);
-
-  const [mortgageTotal, setMortgageTotal] = useState<number>(0);
-
-  // Stores previous mortgage total without creating a new state; therefore avoiding a re-render
-  const prevMortgageTotal = useRef<number>(0);
 
   // Avoid recalculating mortgage if loanAmount, term, and rate do not change
   const memoizedMortgageTotal = useMemo(() => {
     return calculateMortgage(loanAmount, rate, term);
   }, [loanAmount, term, rate]);
 
-  // const download = () => {
-  //   downloadFile();
-  // };
-
-  // const test = async () => {
-  //   const data = await axios.post('/api/rates', {data: 'obama'});
-  //   // console.log(data);
-  //   return data;
-  // };
-
   useEffect(() => {
-    setLoanAmount(getLoanAmount(purchasePrice, downPayment));
+    setLoanAmount?.(calculateLoanAmount(purchasePrice, downPayment));
   }, [purchasePrice, downPayment]);
 
   // Populates mortgage total at initial render
   useEffect(() => {
-    setMortgageTotal(calculateMortgage(loanAmount, rate, term));
+    setMortgageTotal?.(calculateMortgage(loanAmount, rate, term));
   }, []);
-
   return (
     <>
       <h4>Calculate Your Mortgage</h4>
@@ -55,11 +40,7 @@ const MortgageCalculator: React.FC = () => {
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
           // Stores current mortgage total in useRef, before calculating the new mortgage total
-          setMortgageTotal((prevMortgage: number): number => {
-            if (prevMortgage !== memoizedMortgageTotal)
-              prevMortgageTotal.current = prevMortgage;
-            return memoizedMortgageTotal;
-          });
+          setMortgageTotal?.(memoizedMortgageTotal)
         }}
       >
         <label htmlFor="purchase-price">
@@ -68,7 +49,7 @@ const MortgageCalculator: React.FC = () => {
             min="10000"
             step="1000"
             name="purchase-price"
-            onChange={(e) => setPurchasePrice(e.target.valueAsNumber)}
+            onChange={(e) => setPurchasePrice?.(e.target.valueAsNumber)}
             value={purchasePrice}
           />
         </label>
@@ -79,7 +60,7 @@ const MortgageCalculator: React.FC = () => {
             max="100"
             step="1"
             name="down-payment"
-            onChange={(e) => setDownPayment(e.target.valueAsNumber)}
+            onChange={(e) => setDownPayment?.(e.target.valueAsNumber)}
             value={downPayment}
           />
         </label>
@@ -94,7 +75,7 @@ const MortgageCalculator: React.FC = () => {
             max="30"
             step="1"
             name="term"
-            onChange={(e) => setTerm(e.target.valueAsNumber)}
+            onChange={(e) => setTerm?.(e.target.valueAsNumber)}
             value={term}
           />
         </label>
@@ -103,7 +84,7 @@ const MortgageCalculator: React.FC = () => {
             type="number"
             name="rate"
             min="0.01"
-            onChange={(e) => setRate(e.target.valueAsNumber)}
+            onChange={(e) => setRate?.(e.target.valueAsNumber)}
             value={rate}
           />
         </label>
@@ -112,11 +93,7 @@ const MortgageCalculator: React.FC = () => {
       <div className="mortgage">
         <h5>Total Monthly Mortgage</h5>
         <p>{`$ ${mortgageTotal}`}</p>
-        {/* <p>{`$ ${prevMortgageTotal.current}`}</p> */}
       </div>
-      {/* <button onClick={test} type="button">
-        Download
-      </button> */}
     </>
   );
 };

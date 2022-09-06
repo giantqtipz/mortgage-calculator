@@ -1,5 +1,5 @@
 import React, { useContext, useMemo, useState, useEffect } from 'react';
-import { MetricsContext } from '../contextUtils';
+import { MetricsContext } from '../contexts/metricsContext';
 import { calculatePoints, calculateMortgage } from '../utils';
 import './pointsCalculator.scss';
 
@@ -11,18 +11,20 @@ const PointsCalculator: React.FC = () => {
     term,
     rate,
     mortgageTotal,
-  } = useContext(MetricsContext);
-  const [points, setPoints] = useState<number>(0);
-  const [pointsPercent, setPointsPercent] = useState<number>(0);
-  const [pointsRate, setPointsRate] = useState<number>(0);
-  const [pointsCost, setPointsCost] = useState<number>(0);
-  const [pointsWithDownPayment, setPointsWithDownPayment] = useState<number>(
-    (purchasePrice * downPayment) / 100 + pointsCost
-  );
 
-  const [mortgageTotalWithPoints, setMortgageTotalWithPoints] = useState<
-    number
-  >(mortgageTotal);
+    points,
+    setPoints,
+    pointsPercent,
+    setPointsPercent,
+    pointsRate,
+    setPointsRate,
+    pointsCost,
+    setPointsCost,
+    pointsWithDownPayment,
+    setPointsWithDownPayment,
+    mortgageTotalWithPoints,
+    setMortgageTotalWithPoints,
+  } = useContext(MetricsContext);
 
   // Avoid recalculating mortgage if loanAmount, term, and rate do not change
   const memoizedMortgageTotalWithPoints = useMemo(() => {
@@ -34,15 +36,15 @@ const PointsCalculator: React.FC = () => {
   }, [points, loanAmount, term, pointsRate, rate, mortgageTotal]);
 
   useEffect(() => {
-    setPointsCost(calculatePoints(loanAmount, points));
+    setPointsCost?.(calculatePoints(loanAmount, points));
   }, [points, pointsPercent]);
 
   useEffect(() => {
-    setPointsWithDownPayment((purchasePrice * downPayment) / 100 + pointsCost);
+    setPointsWithDownPayment?.((purchasePrice * downPayment) / 100 + pointsCost);
   }, [pointsCost]);
 
   useEffect(() => {
-    setMortgageTotalWithPoints(mortgageTotal);
+    setMortgageTotalWithPoints?.(mortgageTotal);
   }, []);
   return (
     <>
@@ -52,9 +54,7 @@ const PointsCalculator: React.FC = () => {
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
           // Stores current mortgage total in useRef, before calculating the new mortgage total
-          setMortgageTotalWithPoints((): number => {
-            return memoizedMortgageTotalWithPoints;
-          });
+          setMortgageTotalWithPoints?.(memoizedMortgageTotalWithPoints)
         }}
       >
         <label htmlFor="points">
@@ -65,9 +65,9 @@ const PointsCalculator: React.FC = () => {
             step=".50"
             name="points"
             onChange={(e) => {
-              setPoints(e.target.valueAsNumber);
-              setPointsPercent(e.target.valueAsNumber * 0.25);
-              setPointsRate(rate * 100 - e.target.valueAsNumber * 0.25);
+              setPoints?.(e.target.valueAsNumber);
+              setPointsPercent?.(e.target.valueAsNumber * 0.25);
+              setPointsRate?.(rate * 100 - e.target.valueAsNumber * 0.25);
             }}
             value={points}
           />

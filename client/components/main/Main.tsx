@@ -1,22 +1,24 @@
-import React from 'react';
-import { Intro, MortgageCalculator, PointsCalculator } from '../index';
-import { MetricsProvider } from '../contextUtils';
+import React, { useState } from 'react';
+import { Intro, MortgageCalculator, MortgageComparisonSchedule, PointsCalculator } from '../index';
+import { MetricsProvider } from '../contexts/metricsContext';
 import './main.scss';
 
-interface Props {
-  location: {
-    search: string;
-  };
-}
+const Main: React.FC = () => {
+  const[toggle, setToggle] = useState(false);
 
-const Main: React.FC<Props> = () => {
+  const toggleComparisonSchedule = () => {
+    setToggle(!toggle);
+  }
+
   return (
     <>
       <Intro />
       <MetricsProvider>
         <MortgageCalculator />
         <PointsCalculator />
+        <MortgageComparisonSchedule toggle={toggle}/>
       </MetricsProvider>
+      <button onClick={toggleComparisonSchedule} type='button'>Compare</button>
     </>
   );
 };
