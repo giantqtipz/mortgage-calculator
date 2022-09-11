@@ -1,6 +1,6 @@
 import React, { useContext, useMemo, useState, useEffect } from 'react';
 import { MetricsContext } from '../contexts/metricsContext';
-import { calculatePoints, calculateMortgage } from '../utils';
+import { calculatePoints, calculateMortgage } from '../utils/utils';
 import './pointsCalculator.scss';
 
 const PointsCalculator: React.FC = () => {

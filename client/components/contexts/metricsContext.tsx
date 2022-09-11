@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { calculateLoanAmount } from '../utils';
+import { calculateLoanAmount } from '../utils/utils';
 
 // Create context for purchasePrice, downPayment, loanAmount, term, rate, mortgageTotal
 // so they are accessible to other components such as the PointsCalculator component

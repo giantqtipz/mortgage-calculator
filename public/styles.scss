@@ -1,1 +1,28 @@
-// @import 'bootstrap/scss/bootstrap.scss';
+/*     Font Styles     */
+@font-face {
+	font-family: "Merriweather";
+	src: local("Merriweather"),
+	 url("./fonts/Merriweather/Merriweather-Regular.ttf") format("truetype");
+}
+
+html {
+	font-family: "Merriweather";
+}
+
+#root {
+	margin: 2%;
+}
+
+.container {
+	border: 1px solid black;
+	box-sizing: border-box;
+    margin: 0 auto;
+	position: relative;
+    width: 500px;
+
+	h1 {
+		font-size: 36px;
+		font-weight: 700;
+		text-align: center;
+	}
+}

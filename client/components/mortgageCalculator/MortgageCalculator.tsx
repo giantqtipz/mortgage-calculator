@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo } from 'react';
-import { calculateLoanAmount, calculateMortgage } from '../utils';
+import { calculateLoanAmount, calculateMortgage } from '../utils/utils';
 import { MetricsContext } from '../contexts/metricsContext';
 import './mortgageCalculator.scss';
 
