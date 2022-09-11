@@ -11,15 +11,16 @@ const Main: React.FC = () => {
   }
 
   return (
-    <>
+    <div className='container'>
       <Intro />
+      <h1>Mortgage Calculator</h1>
       <MetricsProvider>
         <MortgageCalculator />
         <PointsCalculator />
         <MortgageComparisonSchedule toggle={toggle}/>
+        <button onClick={toggleComparisonSchedule} type='button'>Compare</button>
       </MetricsProvider>
-      <button onClick={toggleComparisonSchedule} type='button'>Compare</button>
-    </>
+    </div>
   );
 };
 

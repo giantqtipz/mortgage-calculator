@@ -40,6 +40,15 @@ module.exports = {
         use: { loader: 'ts-loader' },
         exclude: /node_modules/,
       },
+      { 
+        test: /\.(jpg|png|woff|woff2|eot|ttf|svg)$/,
+        use : {
+          loader: 'file-loader',
+          options: {
+            name: '[path][name].[ext]?[hash]'
+          }
+        }
+      }
     ],
   },
   devServer: {

@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import './intro.scss';
 
 const Intro: React.FC = () => {
-  return (
-    <>
-      <h1>Friendly Mortgage Calculator</h1>
-      <h2>
-        A beginner friendly app to help you quickly estimate your monthly
-        mortgage
-      </h2>
-      <h2>If you&apos;re a first time homebuyer, you are in the right place</h2>
-      <button type="submit">Let&apos;s Go!</button>
-      <button type="submit">Skip Tutorial</button>
-    </>
+  const [toggle, setToggle] = useState(true);
+
+  const toggleIntro = () => {
+    setToggle(!toggle);
+  }
+
+  return toggle === false ? null : (
+    <div className='intro-container'>
+      <div className='intro-content' >
+        <img src='./assets/intro-image.png' />
+        <h2>Mortgage Calculator</h2>
+        <h3>Mortgage education &amp; calculation for</h3>
+        <h3>first time homebuyers</h3>
+        <div className='intro-buttons'>
+          <button className="intro-tutorial" role="button" type="submit">Take the Tutorial</button>
+          <button className="intro-tutorial-skip" onClick={toggleIntro} type="submit">I know what to do</button>
+        </div>
+      </div>
+    </div>
   );
 };
 
